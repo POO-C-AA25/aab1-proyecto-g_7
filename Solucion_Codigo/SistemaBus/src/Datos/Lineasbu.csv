@@ -1,0 +1,52 @@
+Linea 01; Parque Infantil Estadio; La Salle;Colegio Beatriz Cueva; La Urna; Campus UTPL
+Linea 02; Pradera; Av. Kigman; Parque Infantil; La Urna;  Campus UTPL
+Linea 03; Pradera; Av. Kigman; Parque Infantil; Estadio; La Colegio Beatriz Cueva; La Urna; Campus UTPL
+Linea 07; Ciudad Alegria; Esteban Godoy; Canchas Calva & Calva; Av. Pio Jaramillo; Tebaida Baja; Puerta de la Ciudad; La Urna; Campus UTPL
+Linea 08; Ciudad Alegria; Esteban Godoy; Puerta de la Ciudad; La Urna; Campus UTPL
+Linea 09; Canchas Calva & Calva; AV. Pio Jaramillo; Tebaida Baja; Coliseo Ciudad de Loja; Lauro Guerrero; Puerta de la Ciudad; La Urna;  Campus UTPL
+Linea 10; Ciudad Alegria; Esteban Godoy; Cachas Calva & Calva; Av. Pio Jaramillo; Tebaida Baja; Coliseo Ciudad de Loja; Pio y Venezuela; Lauro Guerrero; Puerta de la Ciudad; La Urna;  Campus UTPL
+Linea 11; Daniel Alvarez ; Benjamin Carrion; Tebaida Baja; Coliseo Ciudad de Loja; Pio Venezuela; Lauro Guerrero; Puerta de Ciudad; La Urna; Campus
+Linea 12; Tebaida Baja; Coliseo Ciudad de Loja; Pio y Venezuela; Lauro Guerrero; Puerta de la Ciudad; La Urna; Campus UTPL
+Linea 13; Coliseo Ciudad de Loja; Pio y Venezuela; Lauro Guerrero; Puerta de la Ciudad; La Urna; Campus UTPL
+Linea 14; Lauro Guerrero; Puerta de la Ciudad; La Urna; Campus UTPL
+Linea 15; Operadores; Epoca; Av. de Los Paltas; Bomba La Llave; Occidental ; EI Bosque; Zona Militar; La Urna; Campus UTPL
+Linea 16; Operadores; Epoca; Av. de Los Paltas; Zona Militar; ta Urna; Campus UTPL
+Linea 17; Bomba La Llave; Occidental ; EI Bosque; Zona Militar; La Urna; Campus UTPL
+Linea 18; Sauces Norte; Av. 8 de Diciembre; Clinica Nataly; Las Pitas; Terminal Terrestre; Zona Militar; La Urna; Campus UTPL
+Linea 19; Hipervalle; Calasanz; Solca; La Paz; Las Pitas; Terminal Terrestre; Zona Militar; La Urna; Campus UTPL
+Linea 20; Las Pitas; Terminal Terrestre; Zona Militar; La Urna; Campus UTPL
+Linea 21; Operadores; Daniel alvarez Burmeo; Benjamin Carrion; Tebaida Baja; Coliseo Ciudad de Loja; Lauro Guerrero; Puerta de la Ciudad; La Urna; Campus UTPL
+Linea 22; Epoca; Av. de Los Paltas; Bomba La Llave; Occidental EI Bosque; Zona Militar; La Urna; Campus UTPL
+Linea 23; Rosales; Pradera; Av. Kigman; Parque Infantil; Estadio; La Salle; Colegio Beatriz Cuevas La Urna;  Campus UTPL
+Linea 25; Rosales; Av. Kigman; Parque Infantil; Estadio; La Salle; Colegio Beatriz Cueva; La Urna; Campus UTPL
+Linea 31; Campus UTPL; Tame; La Salle; Estadio; La Urna
+Linea 32; Campus UTPL; Puerta de la Ciudad; Jose A. Eguiguren; Mercadillo; Lauro Guerrero; La Urna
+Linea 33; Campus UTPL; Predesur; Hipervalle; Calasanz; Terminal Terrestre; Zona Militar; La Urna
+Linea 38; Campus UTPL; JoseA. Eguiguren; Mercadillo; Pio y Venezuela
+Linea 45; Campus UTPL; Zona Militar; Terminal Terrestre; Occidental ; Bomba La Llave; Av. dg Los Paltas; Epoca
+Linea 51; Campus UTPL; Solca; La Paz; Las Pitas; Clinica Nataly; Av. 8 de Diciembre; Sauces Norte
+Linea 53; Campus UTPL; Tame; La Salle; Estadio; Parque Infantil
+Linea 54; Campus UTPL; Predesur; Hipervalle; Clinica Nataly; Av. 8 de Diciembre; Sauces Norte; Entrada Chinqui lanchi; Colegio Eugenio Espejo; Ilelsa
+Linea 55; Campus UTPL; Calasanz; Solca; La Paz; Las Pitas; Consacola (Pitas 2)
+Linea 65; Campus UTPL; Tame; La Salle; Estadio
+Linea 66; Campus UTPL; Tame; La Salle; Estadio; Zamora Huayco
+Linea 69; Campus UTPL; Parque Infantil; Pradera
+Linea 70; Campus UTPL; Parque Infantil; Pradera; Rosales
+Linea 74; Campus UTPL; Puerta de la Ciudad; JoseA. Eguiguren; Coliseo Ciudad de Loja; Av. Pio Jaramillo; Canchas Calva & Calva
+Linea 75; Campus UTPL; Esteban Godoy ;Ciudad Alegria
+Linea 76; Campus UTPL; Puerta de la Ciudad; JoseA. Eguiguren; Coliseo Ciudad de Loja; Av. Pio Jaramillo; Canchas Calva & Calva; Esteban Godoy; Ciudad Alegria
+Linea 78; Campus UTPL: Puerta de la Ciudad; JoseA. Eguiguren; Mercadillo
+Linea 79; Campus UTPL; Pio y Venezuela; San Pedro; Bellavista; Tebaida Baja
+Linea 80; Campus UTPL; Tebaida Baja; Benjamin Carrion; Daniel Alvarez ; Operadores; Epoca
+Linea 81; Campus UTPL; Mercadillo; Pio y Venezuela; San Pedro
+Linea 82; Campus UTPL; Bellavista; Tebaida Baja; Benjamin Carrion; Daniel Alvarez
+Linea 83; Campus UTPL; Pio y Venezuela; San Pedro; Bellavista; Tebaida Baja; Benjamin Carrion; Daniel Alvarez
+Linea 84; Campus UTPL; Puerta de la Ciudad; JoseA. Egui uren; Mercadillo; Pio y Venezuela; San pedro; Bellavista; Tebaida Baja
+Linea 85; Campus UTPL; EI Bosque; Occidental ; Bomba La Llave; Av. de los Paltas; Epoca; Operadores
+Linea 86; Campus UTPL; EI Bosque; Occidental ; Bomba La Llave; Av. de los Paltas
+Linea 87; Campus UTPL; Av. de Los Paltas; Epoca; Operadores
+Linea 88; Campus UTPL; Zona Militar; Terminal Terrestre; EI Bosque; Occidental;  Bomba La Llave; Av. de Los Paltas; Epoca;Operadores
+Linea 89; Campus UTPL; Predesur; Hipervalle;Calasanz; Solca; La Paz; Las Pitas
+Linea 93; Campus UTPL; Av. Cuxibamba; Zona Militar; Terminal Terrestre; Clodoveo; Entrada a Shushuhuayco
+Linea 95; Campus UTPL; Coliseo Ciudad de Lo ia; AV. Pio Jaramillo; Canchas Calva & Calva; Esteban Godoy; Ciudad Alegria
+Linea 98; Campus UTPI; Predesur; Hipervalle; Calasanz; La paz; Las Pitas; Clinica Nataly; Av. 8 de Diciembre; Sauces Norte
