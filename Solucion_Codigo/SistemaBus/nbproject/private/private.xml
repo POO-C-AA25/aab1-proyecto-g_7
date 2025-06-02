@@ -4,13 +4,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/User/Desktop/taller%20poo/aab1-proyecto-g_7/Solucion_Codigo/SistemaBus/src/Main.java</file>
-            <file>file:/C:/Users/User/Desktop/taller%20poo/aab1-proyecto-g_7/Solucion_Codigo/SistemaBus/src/model/generarObjetos.java</file>
             <file>file:/C:/Users/User/Desktop/taller%20poo/aab1-proyecto-g_7/Solucion_Codigo/SistemaBus/src/model/serializar.java</file>
-            <file>file:/C:/Users/User/Desktop/taller%20poo/aab1-proyecto-g_7/Solucion_Codigo/SistemaBus/src/model/bus.java</file>
-            <file>file:/C:/Users/User/Desktop/taller%20poo/aab1-proyecto-g_7/Solucion_Codigo/SistemaBus/src/Datos/Horarios.csv</file>
-            <file>file:/C:/Users/User/Desktop/taller%20poo/aab1-proyecto-g_7/Solucion_Codigo/SistemaBus/src/model/parada.java</file>
-            <file>file:/C:/Users/User/Desktop/taller%20poo/aab1-proyecto-g_7/Solucion_Codigo/SistemaBus/src/model/Horario.java</file>
-            <file>file:/C:/Users/User/Desktop/taller%20poo/aab1-proyecto-g_7/Solucion_Codigo/SistemaBus/src/model/lector.java</file>
+            <file>file:/C:/Users/User/Desktop/taller%20poo/aab1-proyecto-g_7/Solucion_Codigo/SistemaBus/src/controller/buscadores.java</file>
         </group>
     </open-files>
 </project-private>

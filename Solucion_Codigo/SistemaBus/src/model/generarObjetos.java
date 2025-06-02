@@ -53,7 +53,7 @@ public class generarObjetos {
         return buses;
     }
 
-    public static void asignarHorariosABuses(List<Bus> buses, List<Horario> horarios) {
+    public static void asignarHorariosABuses(List<bus> buses, List<Horario> horarios) {
         int busIndex = 0;
         for (Horario horario : horarios) {
             for (String linea : horario.getLineas()) {
