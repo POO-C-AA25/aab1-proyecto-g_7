@@ -1,11 +1,9 @@
-package model;
-
+package Solucion_Codigo.SistemaBus.src.model;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 public class lector {
-    
     public static List<String[]> leerHorarios(String ruta) {
         List<String[]> datos = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
@@ -20,7 +18,6 @@ public class lector {
         }
         return datos;
     }
-
     public static List<String[]> leerRutas(String ruta) {
         List<String[]> datos = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
