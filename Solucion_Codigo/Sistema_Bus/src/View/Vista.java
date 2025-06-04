@@ -245,11 +245,14 @@ public class Vista {
         List<Ruta> rutas;
         List<Bus> buses;
 
+        
         List[] datosCargados = cargarDatos(rutaHorariosSer, rutaRutasSer, rutaBusesSer);
 
+        
         if (datosCargados != null && datosCargados[0] != null && datosCargados[1] != null && datosCargados[2] != null) {
             horarios = (List<Horario>) datosCargados[0];
             rutas = (List<Ruta>) datosCargados[1];
+            
             buses = (List<Bus>) datosCargados[2];
             System.out.println("Datos cargados desde archivos serializados.");
         } else {
