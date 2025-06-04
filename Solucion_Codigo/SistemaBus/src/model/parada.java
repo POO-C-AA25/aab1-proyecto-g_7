@@ -1,16 +1,15 @@
 package Solucion_Codigo.SistemaBus.src.model;
 import java.io.Serializable;
-public class parada implements Serializable{
-    private String nombre;
-    public parada(String nombre) {
-        this.nombre = nombre;
+public class Parada implements Serializable{
+    private String nombreparada;
+    public Parada(String nombreparada) {
+        this.nombreparada = nombreparada;
     }
-    public String getNombre() {
-        return nombre;
+    public String getNombreparada() {
+        return this.nombreparada;
     }
     @Override
     public String toString() {
-        return nombre;
+        return this.nombreparada;
     }
-    
 }

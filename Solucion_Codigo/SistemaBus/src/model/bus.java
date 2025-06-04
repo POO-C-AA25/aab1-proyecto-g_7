@@ -2,10 +2,10 @@ package Solucion_Codigo.SistemaBus.src.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-    public class bus implements Serializable{
+    public class Bus implements Serializable{
     public String id;
     public List<String> asignacion;
-    public bus (String id){
+    public Bus (String id){
         this.id=id;
         this.asignacion=new ArrayList<>();
     }
@@ -22,7 +22,7 @@ import java.util.List;
     public String toString() {
         StringBuilder sb = new StringBuilder("Bus " + id + "\n");
         for (String asigna : asignacion) {
-            sb.append("   ").append(asignacion).append("\n");
+            sb.append("   ").append(asigna).append("\n");
         }
         return sb.toString();
     }

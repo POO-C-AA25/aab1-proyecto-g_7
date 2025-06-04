@@ -2,27 +2,27 @@ package Solucion_Codigo.SistemaBus.src.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-public class ruta implements Serializable{
-    public String nombre;
-    public List<parada> paradas;
-    public ruta(String nombre) {
-        this.nombre = nombre;
+public class Ruta implements Serializable{
+    public String nombreruta;
+    public List<Parada> paradas;
+    public Ruta(String nombreRuta) {
+        this.nombreruta = nombreRuta;
         this.paradas = new ArrayList<>();
     }
-    public void agregarParada(parada parada) {
+    public void agregarParada(Parada parada) {
         paradas.add(parada);
     }
-    public String getnombre() {
-        return nombre;
+    public String getNombreruta() {
+        return this.nombreruta;
     }
-    public List<parada> getParadas() {
-        return paradas;
+    public List<Parada> getParadas() {
+        return this.paradas;
     }
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("Ruta: " + nombre + ": ");
-        for (parada p : paradas) {
-            sb.append(p.getNombre()).append(" → ");
+        StringBuilder sb = new StringBuilder("Ruta: " + this.nombreruta + ": ");
+        for (Parada p : paradas) {
+            sb.append(p.getNombreparada()).append(" → ");
         }
         sb.setLength(sb.length() - 3); // eliminar la última flecha
         return sb.toString();

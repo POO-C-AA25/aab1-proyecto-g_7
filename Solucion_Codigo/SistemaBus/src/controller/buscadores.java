@@ -1,25 +1,24 @@
 package Solucion_Codigo.SistemaBus.src.controller;
 import Solucion_Codigo.SistemaBus.src.model.Horario;
-import Solucion_Codigo.SistemaBus.src.model.parada;
-import Solucion_Codigo.SistemaBus.src.model.ruta;
+import Solucion_Codigo.SistemaBus.src.model.Parada;
+import Solucion_Codigo.SistemaBus.src.model.Ruta;
 import java.util.ArrayList;
 import java.util.List;
-public class buscadores {
+public class Buscadores {
     private List<Horario> horarios;
-    private List<ruta> rutas;
-    public buscadores(List<Horario> horarios, List<ruta> rutas) {
+    private List<Ruta> rutas;
+    public Buscadores(List<Horario> horarios, List<Ruta> rutas) {
         this.horarios = horarios;
         this.rutas = rutas;
     }
-        /**
-     * Busca los horarios disponibles dentro de un rango de 15 a 30 minutos
-     * después de la hora dada en formato "h:mm a.m." o "h:mm p.m."
-     *
+    /**
+     * Busca los horarios disponibles dentro de un rango de 0 a 30 minutos después de la hora dada en formato "h:mm a.m." o "h:mm p.m."
      * @param horaEntrada Hora en formato "4:15 p.m."
      * @return lista de Horarios que cumplen el criterio
      */
     public List<Horario> buscarHorariosDisponibles(String horaEntrada) {
         List<Horario> resultados = new ArrayList<>();
+        boolean esUltimoHorario = true; // Para verificar si se alcanzó el último horario
         try {
             String[] partesHora = horaEntrada.trim().split("[: ]+");
             if (partesHora.length < 3) {
@@ -48,14 +47,38 @@ public class buscadores {
                 }
                 int minutosHorarioTotales = horaHorario * 60 + minutosHorario;
                 int diferencia = minutosHorarioTotales - minutosEntrada;
-                if (diferencia >= 15 && diferencia <= 30) {
+                // Incluir el horario exacto y buscar dentro del rango de 0 a 30 minutos
+                if (diferencia >= 0 && diferencia <= 30) {
                     resultados.add(h);
+                    esUltimoHorario = false; // Hay horarios disponibles después de la hora ingresada
                 }
+            }
+            // Mensaje si se alcanzó el último horario
+            if (esUltimoHorario) {
+                System.out.println("Último horario alcanzado. No hay más buses después de " + horaEntrada + ".");
             }
         } catch (NumberFormatException e) {
             // Retornar lista vacía si error al parsear
         }
         return resultados;
+    }
+    /**
+     * Busca las paradas disponibles para una línea de bus específica.
+     *
+     * @param lineaBus Línea de bus a buscar
+     * @return lista de paradas que pertenecen a la línea especificada
+     */
+    public List<String> buscarParadasPorLinea(String lineaBus) {
+        for (Ruta r : rutas) {
+            if (r.getNombreruta().equalsIgnoreCase(lineaBus)) {
+                List<String> nombresParadas = new ArrayList<>();
+                for (Parada p : r.getParadas()) {
+                    nombresParadas.add(p.getNombreparada());
+                }
+                return nombresParadas;
+            }
+        }
+        return new ArrayList<>();
     }
     /**
      * Busca los horarios disponibles para una línea de bus específica.
@@ -75,39 +98,27 @@ public class buscadores {
         }
         return resultados;
     }
-    /**
-     * Busca las paradas disponibles para una línea de bus específica.
-     *
-     * @param lineaBus Línea de bus a buscar
-     * @return lista de paradas que pertenecen a la línea especificada
-     */
-    public List<String> buscarParadasPorLinea(String lineaBus) {
-        for (ruta r : rutas) {
-            if (r.getnombre().equalsIgnoreCase(lineaBus)) {
-                List<String> nombresParadas = new ArrayList<>();
-                for (parada p : r.getParadas()) {
-                    nombresParadas.add(p.getNombre());
-                }
-                return nombresParadas;
-            }
-        }
-        return new ArrayList<>();
-    }
-    /**
-     * Obtiene la ruta dado su nombre.
-     *
-     * @param nombreRuta El nombre de la ruta a buscar.
-     * @return El objeto ruta si se encuentra, null en caso contrario.
-     */
-    public ruta obtenerRutaPorNombre(String nombreRuta) {
-        for (ruta r : rutas) {
-            if (r.getnombre().equalsIgnoreCase(nombreRuta)) {
+    public Ruta obtenerRutaPorNombre(String nombreRuta) {
+        for (Ruta r : rutas) {
+            if (r.getNombreruta().equalsIgnoreCase(nombreRuta)) {
                 return r;
             }
         }
         return null;
     }
-    public List<ruta> obtenerTodasLasRutas() {
-        return rutas;
+    /**
+     * Muestra los horarios encontrados y un mensaje sobre la espera de los buses.
+     * @param horarios Lista de horarios encontrados
+     */
+    public void mostrarHorarios(List<Horario> horarios) {
+        if (horarios == null || horarios.isEmpty()) {
+            System.out.println("No se encontraron horarios disponibles.");
+            return;
+        }
+        System.out.println("Horarios disponibles:");
+        for (Horario h : horarios) {
+            System.out.println(h);
+        }
+        System.out.println("Los buses esperan 5 minutos más para recoger a todos los pasajeros.");
     }
 }

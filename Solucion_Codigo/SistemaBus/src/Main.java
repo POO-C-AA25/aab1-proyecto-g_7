@@ -1,6 +1,6 @@
 package Solucion_Codigo.SistemaBus.src;
 import java.util.Scanner;
-import Solucion_Codigo.SistemaBus.src.controller.buscadores;
+import Solucion_Codigo.SistemaBus.src.controller.Buscadores;
 import Solucion_Codigo.SistemaBus.src.view.vista;
 import java.util.List;
 import Solucion_Codigo.SistemaBus.src.model.*;
@@ -14,12 +14,12 @@ public class Main {
         List<String[]> datosRutas = lector.leerRutas(rutaRutas); // Leer rutas
         List<Horario> horarios = generarObjetos.generarHorarios(datosHorarios);
         List<ruta> rutas = generarObjetos.generarRutas(datosRutas);
-        List<bus> buses = generarObjetos.crearBuses(5); // ejemplo: 5 buses
+        List<Bus> buses = generarObjetos.crearBuses(5); // ejemplo: 5 buses
         // Asignar horarios a buses
         generarObjetos.asignarHorariosABuses(buses, horarios);
         generarObjetos.asignarHorariosABuses(buses, horarios);
         // Instanciar controlador y vista
-        buscadores buscadores = new buscadores(horarios, rutas); // Pasar rutas a buscadores
+        Buscadores buscadores = new Buscadores(horarios, rutas); // Pasar rutas a buscadores
         vista vista = new vista();
         do {
             // Solicitar opción al usuario

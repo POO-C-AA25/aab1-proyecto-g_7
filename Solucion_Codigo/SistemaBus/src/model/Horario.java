@@ -5,6 +5,7 @@ import java.util.List;
 public class Horario implements Serializable{
     private String hora;
     private List<String> lineas;
+    public Horario(){}
     public Horario(String hora) {
         this.hora = hora;
         this.lineas = new ArrayList<>();

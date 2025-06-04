@@ -1,7 +1,7 @@
 package Solucion_Codigo.SistemaBus.src.view;
 import Solucion_Codigo.SistemaBus.src.model.Horario;
-import Solucion_Codigo.SistemaBus.src.controller.buscadores;
-import Solucion_Codigo.SistemaBus.src.model.ruta;
+import Solucion_Codigo.SistemaBus.src.controller.Buscadores;
+import Solucion_Codigo.SistemaBus.src.model.Ruta;
 import java.util.List;
 import java.util.Scanner;
 public class vista {
@@ -14,17 +14,18 @@ public class vista {
      *
      * @param buscadores Controlador para buscar horarios
      */
-    public void solicitarOpcion(buscadores buscadores) {
+    public void solicitarOpcion(Buscadores buscadores) {
         int opcion = 0; // Inicializar la opción para evitar errores de compilación
         System.out.println("¿Qué desea buscar?");
         System.out.println("1. Línea de bus");
         System.out.println("2. Horario");
         System.out.print("Seleccione una opción (1 o 2): ");
         opcion = scanner.nextInt();
+        scanner.nextLine(); // <--- AÑADE ESTA LÍNEA
         try {
             switch (opcion) {
                 case 1 -> buscarPorLinea(buscadores);
-                case 2 ->buscarPorHora(buscadores);
+                case 2 -> buscarPorHora(buscadores);
                 default ->{
                     System.out.print("Opción no válida. Intente de nuevo (1 o 2): ");
                 }
@@ -59,12 +60,12 @@ public class vista {
         } while (lineaBus == null || lineaBus.trim().isEmpty());
         return lineaBus;
     }
-    private void buscarPorLinea(buscadores buscadores) {
+    private void buscarPorLinea(Buscadores buscadores) {
         String lineaBus = pedirLineaBus();
         List<Horario> horarios = buscadores.buscarHorariosPorLinea(lineaBus);
         mostrarHorariosConDetalles(horarios, lineaBus, buscadores); // Mostrar detalles de ruta
     }
-    private void buscarPorHora(buscadores buscadores) {
+    private void buscarPorHora(Buscadores buscadores) {
         String hora = pedirHora();
         if (hora != null) {
             List<Horario> horarios = buscadores.buscarHorariosDisponibles(hora);
@@ -78,7 +79,7 @@ public class vista {
      * @param lineaBus   Línea de bus consultada
      * @param buscadores Controlador para buscar información adicional (ruta)
      */
-    private void mostrarHorariosConDetalles(List<Horario> horarios, String lineaBus, buscadores buscadores) {
+    private void mostrarHorariosConDetalles(List<Horario> horarios, String lineaBus, Buscadores buscadores) {
         if (horarios == null || horarios.isEmpty()) {
             System.out.println("No se encontraron horarios para la línea: " + lineaBus);
             return;
@@ -90,7 +91,7 @@ public class vista {
             if (h.getLineas().contains(lineaBus)) { // Solo mostrar si contiene la línea buscada
                 System.out.printf("%-10s\n", h.getHora());
                 // Mostrar la ruta para la línea
-                ruta rutaBus = buscadores.obtenerRutaPorNombre(lineaBus); // Usar el método del buscador
+                Ruta rutaBus = buscadores.obtenerRutaPorNombre(lineaBus); // Usar el método del buscador
                 if (rutaBus != null) {
                     System.out.println(rutaBus.toString());
                 } else {
