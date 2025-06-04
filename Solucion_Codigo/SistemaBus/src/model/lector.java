@@ -3,7 +3,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
-public class lector {
+public class Lector {
     public static List<String[]> leerHorarios(String ruta) {
         List<String[]> datos = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {

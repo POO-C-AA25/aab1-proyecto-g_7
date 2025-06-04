@@ -12,8 +12,8 @@ public class Main {
         String rutaHorarios = "C:\\Users\\Lenin\\Desktop\\aab1-proyecto-g_7\\Solucion_Codigo\\SistemaBus\\src\\Datos\\Horarios.csv";
         String rutaRutas = "C:\\Users\\Lenin\\Desktop\\aab1-proyecto-g_7\\Solucion_Codigo\\SistemaBus\\src\\Datos\\Lineasbu.csv";
         // Carga de datos
-        List<String[]> datosHorarios = lector.leerHorarios(rutaHorarios);
-        List<String[]> datosRutas = lector.leerRutas(rutaRutas);
+        List<String[]> datosHorarios = Lector.leerHorarios(rutaHorarios);
+        List<String[]> datosRutas = Lector.leerRutas(rutaRutas);
         if (datosHorarios.isEmpty()) {
             System.out.println("Advertencia: No se cargaron datos de horarios. Verifique el archivo: " + rutaHorarios);
             // Se podría decidir terminar la aplicación aquí si los horarios son esenciales.
