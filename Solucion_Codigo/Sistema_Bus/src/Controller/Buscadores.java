@@ -38,13 +38,13 @@ public class Buscadores {
         return resultados; 
     }
     public static LocalTime parsearHora(String horaTexto) { 
-        try { //
+        try { 
             // Limpieza de espacios más robusta
             String estandarizada = horaTexto.replaceAll("\\s+", " ").trim(); 
             estandarizada = estandarizada.toUpperCase().replace(".", ""); 
             // Aseguramos que solo haya un espacio entre la hora y AM/PM
             int amPmIndex = estandarizada.indexOf("AM"); 
-            if (amPmIndex == -1) { //
+            if (amPmIndex == -1) {
                 amPmIndex = estandarizada.indexOf("PM"); 
             }
             if (amPmIndex != -1 && amPmIndex > 0 && estandarizada.charAt(amPmIndex - 1) != ' ') { 
