@@ -1,4 +1,4 @@
-package Solucion_Codigo.SistemaBus.src.model;
+package Model;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

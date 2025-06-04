@@ -1,5 +1,9 @@
-package Solucion_Codigo.SistemaBus.src.model;
-import Solucion_Codigo.SistemaBus.src.controller.Buscadores; // Importar Buscadores para usar su parsearHora
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package Model;
+import Controller.Buscadores;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;

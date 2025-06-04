@@ -1,4 +1,4 @@
-package Solucion_Codigo.SistemaBus.src.model;
+package Model;
 import java.io.Serializable;
 public class Parada implements Serializable{ //
     private String nombreparada;
