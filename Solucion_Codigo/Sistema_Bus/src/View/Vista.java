@@ -230,7 +230,7 @@ public class Vista {
         System.out.println("Nota: Los buses pueden tener un tiempo de espera adicional en paradas.");
     }
 
-   public static void main(String[] args) {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int opcion;
 
