@@ -94,7 +94,6 @@ public class Vista {
         return new List[]{horarios, rutas, buses};
     }
 
-    // --- Métodos existentes (sin cambios significativos, solo ajustes de tildes/caracteres especiales para evitar '?' ) ---
     public void solicitarOpcion(Buscadores buscadores) {
         int opcion = -1;
         boolean entradaValida = false;
@@ -155,13 +154,13 @@ public class Vista {
         return lineaBus;
     }
 
-    private void buscarPorLinea(Buscadores buscadores) {
+    public void buscarPorLinea(Buscadores buscadores) {
         String lineaBus = pedirLineaBus();
         List<Horario> horarios = buscadores.buscarHorariosPorLinea(lineaBus);
         mostrarHorariosConDetallesDeLinea(horarios, lineaBus, buscadores);
     }
 
-    private void buscarPorHora(Buscadores buscadores) {
+    public void buscarPorHora(Buscadores buscadores) {
         String horaInput = pedirHora();
         List<Horario> horarios = buscadores.buscarHorariosDisponibles(horaInput);
 
@@ -200,7 +199,7 @@ public class Vista {
         System.out.println("Nota: Los buses pueden tener un tiempo de espera adicional en paradas.");
     }
 
-    private void mostrarHorariosConSusLineasYParadas(List<Horario> horarios, Buscadores buscadores) {
+    public void mostrarHorariosConSusLineasYParadas(List<Horario> horarios, Buscadores buscadores) {
         if (horarios == null || horarios.isEmpty()) {
             System.out.println("No se encontraron horarios disponibles.");
             return;
