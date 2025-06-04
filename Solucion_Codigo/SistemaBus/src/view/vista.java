@@ -49,7 +49,7 @@ public class vista {
     public String pedirHora() {
         String hora;
         do {
-            System.out.print("Ingrese la hora (ejemplo: 4:15 PM o 16:30): "); 
+            System.out.print("Ingrese la hora (ejemplo: 4:15 PM): "); 
             hora = scanner.nextLine().trim();
             if (hora.isEmpty()) {
                 System.out.println("La hora no puede estar vacía. Intente de nuevo.");
@@ -60,7 +60,7 @@ public class vista {
     public String pedirLineaBus() {
         String lineaBus;
         do {
-            System.out.print("Ingrese la línea de bus (ej. L1): ");
+            System.out.print("Ingrese la línea de bus (ej. Linea 01): ");
             lineaBus = scanner.nextLine().trim();
             if (lineaBus.isEmpty()) {
                 System.out.println("La línea de bus no puede estar vacía. Intente de nuevo.");

@@ -3,7 +3,7 @@ import Solucion_Codigo.SistemaBus.src.controller.Buscadores; // Importar Buscado
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-public class generarObjetos {
+public class GenerarObjetos {
     public static List<Horario> generarHorarios(List<String[]> datos) {
         List<Horario> horarios = new ArrayList<>();
         for (String[] fila : datos) {
