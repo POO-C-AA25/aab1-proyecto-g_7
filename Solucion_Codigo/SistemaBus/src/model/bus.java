@@ -2,7 +2,7 @@ package Solucion_Codigo.SistemaBus.src.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-    public class Bus implements Serializable{
+public class Bus implements Serializable{ //
     public String id;
     public List<String> asignacion;
     public Bus (String id){

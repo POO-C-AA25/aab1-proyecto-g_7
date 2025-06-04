@@ -1,121 +1,179 @@
+// vista.java
 package Solucion_Codigo.SistemaBus.src.view;
 import Solucion_Codigo.SistemaBus.src.model.Horario;
 import Solucion_Codigo.SistemaBus.src.controller.Buscadores;
 import Solucion_Codigo.SistemaBus.src.model.Ruta;
 import java.util.List;
 import java.util.Scanner;
+// No es necesario importar DateTimeParseException aquí si la validación la hace Buscadores.parsearHora
+
 public class vista {
     public Scanner scanner;
+
     public vista() {
         scanner = new Scanner(System.in);
     }
-    /**
-     * Solicita al usuario una opción y realiza la búsqueda correspondiente.
-     *
-     * @param buscadores Controlador para buscar horarios
-     */
+
     public void solicitarOpcion(Buscadores buscadores) {
-        int opcion = 0; // Inicializar la opción para evitar errores de compilación
-        System.out.println("¿Qué desea buscar?");
-        System.out.println("1. Línea de bus");
-        System.out.println("2. Horario");
-        System.out.print("Seleccione una opción (1 o 2): ");
-        opcion = scanner.nextInt();
-        scanner.nextLine(); // <--- AÑADE ESTA LÍNEA
-        try {
-            switch (opcion) {
-                case 1 -> buscarPorLinea(buscadores);
-                case 2 -> buscarPorHora(buscadores);
-                default ->{
-                    System.out.print("Opción no válida. Intente de nuevo (1 o 2): ");
+        int opcion = -1; // Inicializar con un valor inválido para entrar al bucle
+        boolean entradaValida = false;
+
+        do {
+            System.out.println("\n¿Qué desea buscar?");
+            System.out.println("1. Información de una Línea de bus (horarios y paradas)");
+            System.out.println("2. Horarios disponibles por Hora");
+            System.out.print("Seleccione una opción (1 o 2): ");
+            
+            try {
+                if (scanner.hasNextInt()) {
+                    opcion = scanner.nextInt();
+                    scanner.nextLine(); // Consumir el salto de línea después de nextInt()
+
+                    switch (opcion) {
+                        case 1:
+                            buscarPorLinea(buscadores);
+                            entradaValida = true;
+                            break;
+                        case 2:
+                            buscarPorHora(buscadores);
+                            entradaValida = true;
+                            break;
+                        default:
+                            System.out.println("Opción no válida. Intente de nuevo (1 o 2).");
+                            // entradaValida sigue siendo false, el bucle se repetirá
+                            break;
+                    }
+                } else {
+                    System.out.println("Entrada no válida. Por favor, ingrese un número (1 o 2).");
+                    scanner.nextLine(); // Consumir la entrada inválida
+                    // entradaValida sigue siendo false, el bucle se repetirá
                 }
+            } catch (java.util.InputMismatchException e) { // Aunque hasNextInt debería prevenir esto
+                System.out.println("Error de entrada. Por favor, ingrese un número (1 o 2).");
+                scanner.nextLine(); // Consumir la entrada inválida
+                // entradaValida sigue siendo false, el bucle se repetirá
             }
-        } catch (NumberFormatException e) {
-                System.out.print("Entrada no válida. Intente de nuevo (1 o 2): ");
-        }
+        } while (!entradaValida);
     }
-    /**
-     * Solicita al usuario ingresar una hora en formato "h:mm a.m." / "h:mm p.m.".
-     *
-     * @return String con la hora ingresada por el usuario
-     */
+
     public String pedirHora() {
         String hora;
         do {
-            System.out.print("Ingrese la hora (ejemplo: 4:15 p.m): ");
-            hora = scanner.nextLine();
-        } while (hora == null || hora.trim().isEmpty());
+            System.out.print("Ingrese la hora (ejemplo: 4:15 PM o 16:30): "); 
+            hora = scanner.nextLine().trim();
+            if (hora.isEmpty()) {
+                System.out.println("La hora no puede estar vacía. Intente de nuevo.");
+            }
+        } while (hora.isEmpty());
         return hora;
     }
-    /**
-     * Solicita al usuario ingresar la línea del bus.
-     *
-     * @return String con la línea del bus ingresada por el usuario
-     */
+
     public String pedirLineaBus() {
         String lineaBus;
         do {
-            System.out.print("Ingrese la línea del bus: ");
-            lineaBus = scanner.nextLine();
-        } while (lineaBus == null || lineaBus.trim().isEmpty());
+            System.out.print("Ingrese la línea de bus (ej. L1): ");
+            lineaBus = scanner.nextLine().trim();
+            if (lineaBus.isEmpty()) {
+                System.out.println("La línea de bus no puede estar vacía. Intente de nuevo.");
+            }
+        } while (lineaBus.isEmpty());
         return lineaBus;
     }
+
     private void buscarPorLinea(Buscadores buscadores) {
         String lineaBus = pedirLineaBus();
         List<Horario> horarios = buscadores.buscarHorariosPorLinea(lineaBus);
-        mostrarHorariosConDetalles(horarios, lineaBus, buscadores); // Mostrar detalles de ruta
+        mostrarHorariosConDetallesDeLinea(horarios, lineaBus, buscadores); // Renombrado para claridad
     }
+
     private void buscarPorHora(Buscadores buscadores) {
-        String hora = pedirHora();
-        if (hora != null) {
-            List<Horario> horarios = buscadores.buscarHorariosDisponibles(hora);
-            mostrarHorarios(horarios);
+        String horaInput = pedirHora();
+        
+        // La validación del formato de la hora se hace internamente en Buscadores.parsearHora.
+        // buscarHorariosDisponibles devolverá una lista vacía si la hora es inválida.
+        List<Horario> horarios = buscadores.buscarHorariosDisponibles(horaInput);
+        
+        if (Buscadores.parsearHora(horaInput) == null && !horarios.isEmpty()){
+             // Esto es improbable si parsearHora es robusto y buscarHorariosDisponibles lo usa.
+             // Pero como doble chequeo si la hora fue inválida pero aún se encontraron horarios (lógica anómala).
+             System.out.println("Formato de hora no válido. Por favor, use el formato 'h:mm AM/PM' o 'HH:mm'.");
+             return;
+        }
+        if (Buscadores.parsearHora(horaInput) == null && horarios.isEmpty()){
+             System.out.println("Formato de hora ingresado no es válido. Por favor, use el formato 'h:mm AM/PM' o 'HH:mm'.");
+             return;
+        }
+
+
+        if (horarios.isEmpty()) {
+            System.out.println("No se encontraron horarios disponibles para la hora ingresada o próximos según los criterios.");
+        } else {
+            mostrarHorariosConSusLineasYParadas(horarios, buscadores); // Renombrado para claridad
         }
     }
-    /**
-     * Muestra la lista de horarios con detalles de la línea de bus.
-     *
-     * @param horarios   Lista de horarios para mostrar
-     * @param lineaBus   Línea de bus consultada
-     * @param buscadores Controlador para buscar información adicional (ruta)
-     */
-    private void mostrarHorariosConDetalles(List<Horario> horarios, String lineaBus, Buscadores buscadores) {
+
+    // Muestra horarios y detalles de UNA línea específica que el usuario buscó
+    public void mostrarHorariosConDetallesDeLinea(List<Horario> horarios, String lineaBuscada, Buscadores buscadores) {
         if (horarios == null || horarios.isEmpty()) {
-            System.out.println("No se encontraron horarios para la línea: " + lineaBus);
+            System.out.println("No se encontraron horarios para la línea: " + lineaBuscada);
             return;
         }
-        System.out.println("\nHorarios para la línea " + lineaBus + ":");
-        System.out.printf("%-10s\n", "Hora");
-        System.out.println("----------");
+        System.out.println("\nHorarios para la línea " + lineaBuscada + ":");
+        
+        Ruta rutaDeLaLinea = buscadores.obtenerRutaPorNombre(lineaBuscada);
+
         for (Horario h : horarios) {
-            if (h.getLineas().contains(lineaBus)) { // Solo mostrar si contiene la línea buscada
-                System.out.printf("%-10s\n", h.getHora());
-                // Mostrar la ruta para la línea
-                Ruta rutaBus = buscadores.obtenerRutaPorNombre(lineaBus); // Usar el método del buscador
-                if (rutaBus != null) {
-                    System.out.println(rutaBus.toString());
+             // buscarHorariosPorLinea ya filtra, pero por si acaso la lista viniera de otro lado o para ser explícito.
+             if (h.getLineas().stream().anyMatch(l -> l.equalsIgnoreCase(lineaBuscada))) {
+                System.out.println("------------------------------------");
+                System.out.printf("Hora de Salida: %s\n", h.getHoraTexto()); 
+                if (rutaDeLaLinea != null) {
+                    System.out.println(rutaDeLaLinea.toString()); // Muestra la ruta completa
                 } else {
-                    System.out.println("No se encontró la ruta para esta línea.");
+                    System.out.println("   (No se encontró información detallada de la ruta para esta línea)");
                 }
-                System.out.println("----------");
             }
         }
+        System.out.println("------------------------------------");
+        System.out.println("Nota: Los buses pueden tener un tiempo de espera adicional en paradas.");
     }
-    /**
-     * Muestra la lista de horarios disponibles al usuario.
-     *
-     * @param horarios Lista de horarios para mostrar
-     */
-    public void mostrarHorarios(List<Horario> horarios) {
+    
+    // Muestra horarios (que coinciden con una búsqueda por HORA) y para CADA horario,
+    // muestra TODAS sus líneas y las paradas de CADA UNA de esas líneas.
+    private void mostrarHorariosConSusLineasYParadas(List<Horario> horarios, Buscadores buscadores) {
         if (horarios == null || horarios.isEmpty()) {
+            // Este caso ya se maneja en buscarPorHora, pero es una salvaguarda.
             System.out.println("No se encontraron horarios disponibles.");
             return;
         }
-        System.out.println("\nHorarios disponibles:");
-        System.out.printf("%-10s %-20s\n", "Hora", "Líneas"); // Encabezados formateados
-        System.out.println("-------------------------");
-        for (Horario h : horarios) {
-            System.out.printf("%-10s %-20s\n", h.getHora(), String.join(", ", h.getLineas()));
+
+        if (horarios.size() == 1 && buscadores.buscarHorariosDisponibles(horarios.get(0).getHoraTexto()).size() == 1) { // Una heurística para saber si es el "más próximo"
+             System.out.println("\nHorario más próximo encontrado (si no hay en la ventana de 15-30 min):");
+        } else {
+             System.out.println("\nHorarios disponibles (entre 15 y 30 minutos después de la hora ingresada, o el más próximo):");
         }
+
+        for (Horario h : horarios) {
+            System.out.println("-----------------------------");
+            System.out.println("Hora de Salida Programada: " + h.getHoraTexto()); 
+            if (h.getLineas().isEmpty()){
+                System.out.println("  (Este horario no tiene líneas de bus asignadas)");
+            } else {
+                for (String linea : h.getLineas()) {
+                    System.out.println("  - Línea: " + linea);
+                    List<String> paradas = buscadores.buscarParadasPorLinea(linea);
+                    if (!paradas.isEmpty()) {
+                        System.out.println("    Paradas:");
+                        for (String parada : paradas) {
+                            System.out.println("      → " + parada);
+                        }
+                    } else {
+                        System.out.println("    (No se encontraron paradas para esta línea)");
+                    }
+                }
+            }
+        }
+        System.out.println("-----------------------------");
+        System.out.println("Nota: Los buses pueden tener un tiempo de espera adicional en paradas.");
     }
 }
