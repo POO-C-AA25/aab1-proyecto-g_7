@@ -27,7 +27,7 @@ public class Ruta implements Serializable{
             for (int i = 0; i < paradas.size(); i++) {
                 sb.append(paradas.get(i).getNombreparada());
                 if (i < paradas.size() - 1) {
-                    sb.append(" → ");
+                    sb.append(" -> ");
                 }
             }
         }

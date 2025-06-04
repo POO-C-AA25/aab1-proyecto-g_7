@@ -21,17 +21,15 @@ public class Vista {
                     opcion = scanner.nextInt(); 
                     scanner.nextLine(); 
                     switch (opcion) { 
-                        case 1: 
-                            buscarPorLinea(buscadores); 
-                            entradaValida = true; 
-                            break; 
-                        case 2: 
-                            buscarPorHora(buscadores); 
+                        case 1 -> { 
+                            buscarPorLinea(buscadores);
                             entradaValida = true;
-                            break; 
-                        default: 
-                            System.out.println("Opción no válida. Intente de nuevo (1 o 2)."); 
-                            break; 
+                        }
+                        case 2 -> {
+                            buscarPorHora(buscadores);
+                            entradaValida = true; 
+                        }
+                        default -> System.out.println("Opción no válida. Intente de nuevo (1 o 2).");
                     }
                 } else { 
                     System.out.println("Entrada no válida. Por favor, ingrese un número (1 o 2)."); 
@@ -94,10 +92,10 @@ public class Vista {
 
     public void mostrarHorariosConDetallesDeLinea(List<Horario> horarios, String lineaBuscada, Buscadores buscadores) {
         if (horarios == null || horarios.isEmpty()) {
-            System.out.println("No se encontraron horarios para la línea: " + lineaBuscada);
+            System.out.println("No se encontraron horarios para la linea: " + lineaBuscada);
             return;
         }
-        System.out.println("\nHorarios para la línea " + lineaBuscada + ":");
+        System.out.println("\nHorarios para la linea " + lineaBuscada + ":");
 
         Ruta rutaDeLaLinea = buscadores.obtenerRutaPorNombre(lineaBuscada);
         for (Horario h : horarios) {
@@ -107,7 +105,7 @@ public class Vista {
                 if (rutaDeLaLinea != null) {
                     System.out.println(rutaDeLaLinea.toString());
                 } else {
-                    System.out.println("   (No se encontró información detallada de la ruta para esta línea)"); 
+                    System.out.println("   (No se encontró información detallada de la ruta para esta linea)"); 
                 }
             }
         }
@@ -129,12 +127,12 @@ public class Vista {
                 System.out.println("  (Este horario no tiene líneas de bus asignadas)");
             } else { //
                 for (String linea : h.getLineas()) {
-                    System.out.println("  - Línea: " + linea);
+                    System.out.println("  - Linea: " + linea);
                     List<String> paradas = buscadores.buscarParadasPorLinea(linea); 
                     if (!paradas.isEmpty()) {
                         System.out.println("    Paradas:"); 
                         for (String parada : paradas) { 
-                            System.out.println("      → " + parada); 
+                            System.out.println("      - > " + parada); 
                         }
                     } else { //
                         System.out.println("    (No se encontraron paradas para esta línea)"); 
