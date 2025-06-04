@@ -1,20 +1,14 @@
 package View;
-
-import Model.*; // Importa todas las clases del paquete 'Model'.
-import Controller.Buscadores; // Importa la clase Buscadores del paquete 'Controller'.
-import java.io.*; // Importa todas las clases de java.io para manejo de archivos y serialización.
+import Model.*;
+import Controller.Buscadores;
+import java.io.*;
 import java.util.List;
 import java.util.Scanner;
-
 public class Vista {
     public Scanner scanner;
-
     public Vista() {
         scanner = new Scanner(System.in);
     }
-
-    // --- Nuevos métodos para Serialización ---
-
     /**
      * Guarda las listas de horarios, rutas y buses en archivos serializados.
      * @param horarios Lista de objetos Horario a guardar.
@@ -241,7 +235,7 @@ public class Vista {
         Scanner scanner = new Scanner(System.in);
         int opcion;
 
-        String rutaHorariosCSV = "C:\\Users\\Lenin\\Desktop\\aab1-proyecto-g_7\\Solucion_Codigo\\Sistema_Bus\\src\\Datos\\Horarios.txt";
+        String rutaHorariosCSV = "C:\\Users\\Lenin\\Desktop\\aab1-proyecto-g_7\\Solucion_Codigo\\Sistema_Bus\\src\\Datos\\Horarios.csv";
         String rutaRutasCSV = "C:\\Users\\Lenin\\Desktop\\aab1-proyecto-g_7\\Solucion_Codigo\\Sistema_Bus\\src\\Datos\\Lineasbu.csv";
 
         String rutaHorariosSer = "C:\\Users\\Lenin\\Desktop\\aab1-proyecto-g_7\\Solucion_Codigo\\Sistema_Bus\\src\\Datos\\horarios.ser";
@@ -254,39 +248,45 @@ public class Vista {
 
         List[] datosCargados = cargarDatos(rutaHorariosSer, rutaRutasSer, rutaBusesSer);
 
-        // --- INICIO DE LA CORRECCIÓN ---
-        // Se debe realizar un casting explícito para que el compilador sepa el tipo específico de List
         if (datosCargados != null && datosCargados[0] != null && datosCargados[1] != null && datosCargados[2] != null) {
-            // Si la carga fue exitosa y los datos no son nulos
             horarios = (List<Horario>) datosCargados[0];
             rutas = (List<Ruta>) datosCargados[1];
             buses = (List<Bus>) datosCargados[2];
             System.out.println("Datos cargados desde archivos serializados.");
         } else {
-        // --- FIN DE LA CORRECCIÓN ---
-            // Si no se pudieron cargar (primera ejecución o error), cargar desde CSV/TXT
             System.out.println("Cargando datos desde archivos CSV/TXT iniciales...");
-            List<String[]> datosHorariosCrudos = Lector.leerHorarios(rutaHorariosCSV);
-            List<String[]> datosRutasCrudos = Lector.leerRutas(rutaRutasCSV);
+            try { // Agregamos un bloque try-catch para manejar IOException de los métodos de Lector
+                // CORRECCIÓN CLAVE: Cambiar el tipo de las variables para que coincida con el retorno de Lector
+                List<Horario> datosHorariosLeidos = Lector.leerHorariosDesdeCSV(rutaHorariosCSV);
+                List<Ruta> datosRutasLeidas = Lector.leerRutasDesdeCSV(rutaRutasCSV);
 
-            if (datosHorariosCrudos.isEmpty()) {
-                System.out.println("Advertencia: No se cargaron datos de horarios. Verifique el archivo: " + rutaHorariosCSV);
+                if (datosHorariosLeidos.isEmpty()) {
+                    System.out.println("Advertencia: No se cargaron datos de horarios. Verifique el archivo: " + rutaHorariosCSV);
+                }
+                if (datosRutasLeidas.isEmpty()) {
+                    System.out.println("Advertencia: No se cargaron datos de rutas. Verifique el archivo: " + rutaRutasCSV);
+                }
+                horarios = GenerarObjetos.generarHorarios(datosHorariosLeidos);
+                rutas = GenerarObjetos.generarRutas(datosRutasLeidas);
+                buses = GenerarObjetos.crearBuses(5);
+
+                if (!horarios.isEmpty() && !buses.isEmpty()) {
+                    GenerarObjetos.asignarHorariosABuses(buses, horarios);
+                } else {
+                    System.out.println("No se pudieron asignar horarios a los buses debido a falta de horarios o buses.");
+                }
+
+                guardarDatos(horarios, rutas, buses, rutaHorariosSer, rutaRutasSer, rutaBusesSer);
+            } catch (IOException e) {
+                System.err.println("Error al cargar datos desde archivos CSV/TXT: " + e.getMessage());
+                e.printStackTrace();
+                // Si ocurre un error aquí, es posible que 'horarios', 'rutas' o 'buses' sean nulos
+                // Es crucial que tu programa pueda manejar esto o salir.
+                // Para este ejemplo, los inicializamos a listas vacías para evitar NullPointerException.
+                horarios = new java.util.ArrayList<>();
+                rutas = new java.util.ArrayList<>();
+                buses = new java.util.ArrayList<>();
             }
-            if (datosRutasCrudos.isEmpty()) {
-                System.out.println("Advertencia: No se cargaron datos de rutas. Verifique el archivo: " + rutaRutasCSV);
-            }
-
-            horarios = GenerarObjetos.generarHorarios(datosHorariosCrudos);
-            rutas = GenerarObjetos.generarRutas(datosRutasCrudos);
-            buses = GenerarObjetos.crearBuses(5);
-
-            if (!horarios.isEmpty() && !buses.isEmpty()) {
-                GenerarObjetos.asignarHorariosABuses(buses, horarios);
-            } else {
-                System.out.println("No se pudieron asignar horarios a los buses debido a falta de horarios o buses.");
-            }
-
-            guardarDatos(horarios, rutas, buses, rutaHorariosSer, rutaRutasSer, rutaBusesSer);
         }
 
         Buscadores buscadores = new Buscadores(horarios, rutas);
