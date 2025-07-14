@@ -1,35 +1,35 @@
-Hora ;Bus 1;Bus 2;Bus 3;Bus 4;Bus 5;Bus 6;Bus 7;Bus 8;Bus 9;Bus 10
-6:20 a.m.;Linea 22
-6:25 a.m.;Linea 21;Linea 08
-6:30 a.m.;Linea 01;Linea 19;Linea 13;Linea 02
-6:35 a.m.;Linea 20
-6:55 a.m.;Linea 10;Linea 15
-7:00 a.m.;Linea 03
-7:05 a.m.;Linea 20
-7:25 a.m.;Linea 15;Linea 23;inea 07;Linea 18
-7:30 a.m.;Linea 19;Linea 13
-8:25 a.m.;Linea 10
-8:30 a.m.;Linea 03;Linea 19
-9:30 a.m.;Linea 33;Linea 32;Linea 31
-9:35 a.m.;Linea 14
-10:30 a.m.;Linea 33;Linea 32;Linea 31
-11:00 a.m.;Linea 32
-11:30 a.m.;Linea 33;Linea 32;Linea 31
-12:00 p.m.;Linea 33;Linea 32;Linea 31
-12:30 p.m.;Linea 83;Linea 70;Linea 98;Linea 31;Linea 76;Linea 45
-1:00 p.m.;Linea 95;Linea 70;Linea 65;Linea 98;Linea 38;Linea 80;Linea 45
-1:30 p.m.;Linea 03;Linea 12;Linea 20
-2:25 p.m.;Linea 10;Linea 18;Linea 16
-2:30 p.m.;Linea 03;Linea17;Linea 19;Linea 13;Linea 25;Linea 11;Linea 14
-3:30 p.m.;Linea 33
-3:35 p.m.;Linea 12
-4:30 p.m.;Linea 33;Linea 32;Linea 31
-5:00 p.m.;Linea 32
-5:05 p.m.;Linea 14
-6:00 p.m.;Linea 85;Linea 83;Linea 33;Linea 88;Linea 95;Linea 51;Linea 78;Linea 53;Linea 70;Linea 31
-6:30 p.m.;Linea 78
-6:35 p.m.;Linea 14
-7:00 p.m.;Linea 69;Linea 84;Linea 66;Linea 89;Linea 93
-8:00 p.m.;Linea 79;Linea 78;Linea 89;Linea 93
-8:10 p.m.;Linea 69;Linea 66
-9:00 p.m.;Linea 54;Linea 55;Linea 85;Linea 81;Linea 83;Linea 95;Linea 78;Linea 70;Linea 66;Linea 93
+﻿Hora;Bus1;Bus2;Bus3;Bus4;Bus5;Bus6;Bus7;Bus8;Bus9;Bus10
+6:20a.m.;Linea22;;;;;;;;;
+6:25a.m.;Linea21;Linea08;;;;;;;;
+6:30a.m.;Linea01;Linea19;Linea13;Linea02;;;;;;
+6:35a.m.;Linea20;;;;;;;;;
+6:55a.m.;Linea10;Linea15;;;;;;;;
+7:00a.m.;Linea03;;;;;;;;;
+7:05a.m.;Linea20;;;;;;;;;
+7:25a.m.;Linea15;Linea23;inea07;Linea18;;;;;;
+7:30a.m.;Linea19;Linea13;;;;;;;;
+8:25a.m.;Linea10;;;;;;;;;
+8:30a.m.;Linea03;Linea19;;;;;;;;
+9:30a.m.;Linea33;Linea32;Linea31;;;;;;;
+9:35a.m.;Linea14;;;;;;;;;
+10:30a.m.;Linea33;Linea32;Linea31;;;;;;;
+11:00a.m.;Linea32;;;;;;;;;
+11:30a.m.;Linea33;Linea32;Linea31;;;;;;;
+12:00p.m.;Linea33;Linea32;Linea31;;;;;;;
+12:30p.m.;Linea83;Linea70;Linea98;Linea31;Linea76;Linea45;;;;
+1:00p.m.;Linea95;Linea70;Linea65;Linea98;Linea38;Linea80;Linea45;;;
+1:30p.m.;Linea03;Linea12;Linea20;;;;;;;
+2:25p.m.;Linea10;Linea18;Linea16;;;;;;;
+2:30p.m.;Linea03;Linea17;Linea19;Linea13;Linea25;Linea11;Linea14;;;
+3:30p.m.;Linea33;;;;;;;;;
+3:35p.m.;Linea12;;;;;;;;;
+4:30p.m.;Linea33;Linea32;Linea31;;;;;;;
+5:00p.m.;Linea32;;;;;;;;;
+5:05p.m.;Linea14;;;;;;;;;
+6:00p.m.;Linea85;Linea83;Linea33;Linea88;Linea95;Linea51;Linea78;Linea53;Linea70;Linea31
+6:30p.m.;Linea78;;;;;;;;;
+6:35p.m.;Linea14;;;;;;;;;
+7:00p.m.;Linea69;Linea84;Linea66;Linea89;Linea93;;;;;
+8:00p.m.;Linea79;Linea78;Linea89;Linea93;;;;;;
+8:10p.m.;Linea69;Linea66;;;;;;;;
+9:00p.m.;Linea54;Linea55;Linea85;Linea81;Linea83;Linea95;Linea78;Linea70;Linea66;Linea93
