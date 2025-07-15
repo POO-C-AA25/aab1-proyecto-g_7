@@ -18,9 +18,8 @@ import java.util.Locale;
  */
 public class Buscadores {
     protected static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("h:mm a", Locale.US); // Protected para que las subclases accedan
-    protected List<Horario> horarios; // Protected para que las subclases accedan
-    protected List<Ruta> rutas; // Protected para que las subclases accedan
-
+    protected List<Horario> horarios; 
+    protected List<Ruta> rutas; 
     /**
      * Constructor de Buscadores.
      * @param horarios Lista de horarios disponibles.

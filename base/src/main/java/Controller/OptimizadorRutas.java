@@ -15,14 +15,6 @@ import java.util.List;
 public class OptimizadorRutas extends Buscadores {
 
     private List<Bus> buses;
-
-    /**
-     * Constructor de OptimizadorRutas.
-     * 
-     * @param horarios Lista de horarios.
-     * @param rutas    Lista de rutas.
-     * @param buses    Lista de buses.
-     */
     public OptimizadorRutas(List<Horario> horarios, List<Ruta> rutas, List<Bus> buses) {
         super(horarios, rutas); // Llama al constructor de la clase padre
         this.buses = buses;
@@ -43,7 +35,7 @@ public class OptimizadorRutas extends Buscadores {
         boolean rutasEncontradas = false;
 
         for (Bus bus : buses) {
-            // Simular ocupación (en producción, usar datos reales)
+            // Simular ocupación
             int ocupacion = (int) (Math.random() * 51) + 10; // Entre 10 y 60 personas
 
             if (ocupacion > promedioPersonas) {
@@ -84,7 +76,7 @@ public class OptimizadorRutas extends Buscadores {
         }
     }
 
-    // Método auxiliar para formatear paradas
+    // metodo auxiliar para formatear paradas
     private String formatParadas(List<Parada> paradas) {
         if (paradas == null || paradas.isEmpty()) {
             return "Sin paradas definidas";
@@ -94,7 +86,7 @@ public class OptimizadorRutas extends Buscadores {
         for (int i = 0; i < paradas.size(); i++) {
             sb.append(paradas.get(i).getNombreparada());
             if (i < paradas.size() - 1) {
-                sb.append(" ->");
+                sb.append("->");
             }
         }
         return sb.toString();

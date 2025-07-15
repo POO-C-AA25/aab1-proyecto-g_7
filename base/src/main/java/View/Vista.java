@@ -1,232 +1,214 @@
 package View;
 
-import Model.*;
-import Controller.Buscadores;
-import Controller.OptimizadorRutas;
-import Datos.DBConnection;
+import Model.Horario;
+import Model.Ruta;
+import Model.Parada; // Importar Parada
+import java.time.format.DateTimeFormatter;
+import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
+/**
+ * Clase que gestiona la interacción con el usuario a través de la consola.
+ * Es responsable de mostrar información y leer la entrada del usuario.
+ * Adaptada específicamente para las funcionalidades de búsqueda y optimización.
+ */
 public class Vista {
-    private Scanner scanner;
-    private Buscadores buscadores;
-    private OptimizadorRutas optimizador;
 
-    public Vista(Buscadores buscadores, OptimizadorRutas optimizador) {
+    private final Scanner scanner;
+    // Formateador para mostrar las horas al usuario
+    private static final DateTimeFormatter DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("h:mm a", Locale.US);
+
+    public Vista() {
         this.scanner = new Scanner(System.in);
-        this.buscadores = buscadores;
-        this.optimizador = optimizador;
     }
 
-    public void mostrarMenu() {
-        int opcion = -1;
-        boolean entradaValida = false;
-        do {
-            System.out.println("\n¿Qué desea buscar o hacer?");
-            System.out.println("1. Información de una Línea de bus (horarios y paradas)");
-            System.out.println("2. Horarios disponibles por Hora");
-            System.out.println("3. Optimizar Rutas por Promedio de Personas");
-            System.out.print("Seleccione una opción (1, 2 o 3): ");
+    /**
+     * Muestra el menú principal de la aplicación al usuario, enfocado en búsqueda y
+     * optimización.
+     */
+    public void mostrarMenuPrincipal() {
+        System.out.println("\n--- Menú de Buscador de Rutas ---");
+        System.out.println("1. Buscar Horarios por Línea");
+        System.out.println("2. Buscar Horarios por Hora");
+        System.out.println("3. Optimizar Rutas por Ocupación");
+        System.out.println("0. Salir");
+        System.out.print("Seleccione una opción: ");
+    }
+
+    /**
+     * Lee la opción seleccionada por el usuario desde la consola.
+     *
+     * @return La opción numérica seleccionada.
+     */
+    public int leerOpcion() {
+        while (true) {
             try {
-                if (scanner.hasNextInt()) {
-                    opcion = scanner.nextInt();
-                    scanner.nextLine(); 
-                    entradaValida = true;
-                    procesarOpcion(opcion);
-                } else {
-                    System.out.println("Entrada no válida. Por favor, ingrese un número (1, 2 o 3).");
-                    scanner.nextLine(); 
-                }
-            } catch (java.util.InputMismatchException e) {
-                System.out.println("Error de entrada. Por favor, ingrese un número (1, 2 o 3).");
-                scanner.nextLine(); 
+                int opcion = scanner.nextInt();
+                scanner.nextLine();
+                return opcion;
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada inválida. Por favor, ingrese un número.");
+                scanner.nextLine();
+                System.out.print("Seleccione una opción: ");
             }
-        } while (!entradaValida);
-    }
-
-    private void procesarOpcion(int opcion) {
-        switch (opcion) {
-            case 1:
-                buscarPorLinea();
-                break;
-            case 2:
-                buscarPorHora();
-                break;
-            case 3:
-                optimizarRutas();
-                break;
-            default:
-                System.out.println("Opción no válida. Intente de nuevo (1, 2 o 3).");
-                break;
         }
     }
 
-    private void buscarPorLinea() {
-        String lineaBus = pedirLineaBus();
-        List<Horario> horarios = buscadores.buscarHorariosPorLinea(lineaBus);
-        mostrarHorariosConDetallesDeLinea(horarios, lineaBus);
+    /**
+     * Solicita al usuario que ingrese una línea para buscar.
+     * * @return La línea ingresada por el usuario.
+     */
+    public String pedirLineaBusqueda() {
+        System.out.print("Ingrese la línea de bus a buscar (ej. Linea01): ");
+        return scanner.nextLine().trim();
     }
 
-    private void buscarPorHora() {
-        String horaInput = pedirHora();
-        List<Horario> horarios = buscadores.buscarHorariosDisponibles(horaInput);
-        if (horarios.isEmpty()) {
-            System.out.println("No se encontraron horarios disponibles para la hora ingresada.");
-        } else {
-            mostrarHorariosConSusLineasYParadas(horarios);
+    /**
+     * Solicita al usuario que ingrese una hora para buscar.
+     * * @return La hora ingresada por el usuario (ej. "6:00 AM", "3:30 PM").
+     */
+    public String pedirHoraBusqueda() {
+        System.out.print("Ingrese la hora a buscar (ej. 6:00 AM, 3:30 PM): ");
+        return scanner.nextLine().trim();
+    }
+
+    /**
+     * Solicita al usuario un número para filtrar buses por ocupación.
+     * 
+     * @return El número de personas ingresado.
+     */
+    public int pedirPromedioPersonas() {
+        System.out.print("Ingrese el número mínimo de personas en el bus para mostrar la ruta: ");
+        while (true) {
+            try {
+                int promedio = scanner.nextInt();
+                scanner.nextLine(); // Consumir el salto de línea
+                return promedio;
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada inválida. Por favor, ingrese un número entero.");
+                scanner.nextLine(); // Consumir la entrada incorrecta
+                System.out.print("Ingrese el número mínimo de personas: ");
+            }
         }
     }
 
-    private void optimizarRutas() {
-        int promedio = pedirPromedio();
-        optimizador.optimizarRutasPorPromedioPersonas(promedio);
+    /**
+     * Muestra un mensaje genérico al usuario.
+     * * @param mensaje El mensaje a mostrar.
+     */
+    public void mostrarMensaje(String mensaje) {
+        System.out.println(mensaje);
     }
 
-    private int pedirPromedio() {
-        int promedio = -1;
-        boolean inputValido = false;
-        do {
-            System.out.print("Ingrese el promedio de personas para la optimización (ej. 30): ");
-            try {
-                if (scanner.hasNextInt()) {
-                    promedio = scanner.nextInt();
-                    scanner.nextLine(); // Consumir el salto de línea
-                    if (promedio >= 0) {
-                        inputValido = true;
-                    } else {
-                        System.out.println("El promedio debe ser un número no negativo.");
-                    }
-                } else {
-                    System.out.println("Entrada no válida. Por favor, ingrese un número entero.");
-                    scanner.nextLine(); // Consumir la entrada inválida
-                }
-            } catch (java.util.InputMismatchException e) {
-                System.out.println("Error de entrada. Por favor, ingrese un número entero.");
-                scanner.nextLine(); // Consumir la entrada inválida
-            }
-        } while (!inputValido);
-        return promedio;
+    /**
+     * Muestra un mensaje de error al usuario.
+     * * @param error El mensaje de error a mostrar.
+     */
+    public void mostrarError(String error) {
+        System.err.println("ERROR: " + error);
     }
 
-    private String pedirHora() {
-        String hora;
-        do {
-            System.out.print("Ingrese la hora (ejemplo: 4:15 PM): ");
-            hora = scanner.nextLine().trim();
-            if (hora.isEmpty()) {
-                System.out.println("La hora no puede estar vacía. Intente de nuevo.");
-            }
-        } while (hora.isEmpty());
-        return hora;
-    }
-
-    private String pedirLineaBus() {
-        String lineaBus;
-        do {
-            System.out.print("Ingrese la línea de bus (ej. Linea 01): ");
-            lineaBus = scanner.nextLine().trim();
-            if (lineaBus.isEmpty()) {
-                System.out.println("La línea de bus no puede estar vacía. Intente de nuevo.");
-            }
-        } while (lineaBus.isEmpty());
-        return lineaBus;
-    }
-
-    private void mostrarHorariosConDetallesDeLinea(List<Horario> horarios, String lineaBus) {
+    /**
+     * Muestra la lista de horarios formateados.
+     * * @param horarios La lista de objetos Horario a mostrar.
+     */
+    public void mostrarHorarios(List<Horario> horarios) {
         if (horarios.isEmpty()) {
-            System.out.println("No se encontraron horarios para la línea: " + lineaBus);
+            System.out.println("No se encontraron horarios para su criterio de búsqueda.");
             return;
         }
-        System.out.println("\nHorarios para la línea " + lineaBus + ":");
+        System.out.println("\n--- Horarios Encontrados ---");
         for (Horario h : horarios) {
-            System.out.println("------------------------------------");
-            System.out.printf("Hora de Salida: %s\n", h.getHoraTexto());
+            System.out.println("ID: " + h.getId() +
+                    ", Original: " + h.getHoraTexto() +
+                    // Utiliza el DISPLAY_FORMATTER de la propia Vista
+                    ", Local: " + (h.getHora() != null ? h.getHora().format(DISPLAY_FORMATTER) : "N/A") +
+                    ", Líneas: \n" + String.join(", ", h.getLineas()));
         }
-        System.out.println("------------------------------------");
     }
 
-    private void mostrarHorariosConSusLineasYParadas(List<Horario> horarios) {
-        if (horarios.isEmpty()) {
-            System.out.println("No se encontraron horarios disponibles.");
+    /**
+     * Muestra la lista de rutas y sus paradas.
+     * NOTA: Este método no es utilizado por la opción de optimización actual,
+     * ya que la clase OptimizadorRutas imprime su propio formato. Se mantiene
+     * por si se necesita en el futuro.
+     * * @param rutas La lista de objetos Ruta a mostrar.
+     */
+    public void mostrarRutas(List<Ruta> rutas) {
+        if (rutas.isEmpty()) {
+            System.out.println("No hay rutas para mostrar.");
             return;
         }
-        System.out.println("\nHorarios disponibles:");
+        System.out.println("\n--- Rutas ---");
+        for (Ruta r : rutas) {
+            System.out.println("ID: " + r.getId() + ", Ruta: " + r.getNombreruta());
+            if (!r.getParadas().isEmpty()) {
+                System.out.print("    Paradas: ");
+                for (int i = 0; i < r.getParadas().size(); i++) {
+                    Parada p = r.getParadas().get(i);
+                    System.out.print(p.getNombreparada() + (i < r.getParadas().size() - 1 ? " -> " : ""));
+                }
+                System.out.println();
+            } else {
+                System.out.println("    (Sin paradas asignadas)");
+            }
+        }
+    }
+
+    /**
+     * Muestra el nombre y las paradas de una ruta específica.
+     * 
+     * @param ruta La ruta a mostrar.
+     */
+    public void mostrarDetalleRuta(Ruta ruta) {
+        System.out.println("\n--- Detalles de la Ruta ---");
+        System.out.println("Línea: " + ruta.getNombreruta());
+
+        if (ruta.getParadas() == null || ruta.getParadas().isEmpty()) {
+            System.out.println("    (Esta ruta no tiene paradas definidas)");
+            return;
+        }
+
+        System.out.print("    Paradas: ");
+        List<Parada> paradas = ruta.getParadas();
+        for (int i = 0; i < paradas.size(); i++) {
+            System.out.print(paradas.get(i).getNombreparada());
+            if (i < paradas.size() - 1) {
+                System.out.print(" -> ");
+            }
+        }
+        System.out.println(); // Salto de línea final
+    }
+
+    /**
+     * Muestra una lista de horarios de forma simplificada para una línea
+     * específica.
+     * 
+     * @param horarios     La lista de horarios encontrados.
+     * @param lineaBuscada El nombre de la línea que se buscó.
+     */
+    public void mostrarHorariosParaLinea(List<Horario> horarios, String lineaBuscada) {
+        if (horarios.isEmpty()) {
+            System.out.println("No se encontraron horarios para la línea '" + lineaBuscada + "'.");
+            return;
+        }
+        System.out.println("\n--- Horarios Encontrados para " + lineaBuscada + " ---");
         for (Horario h : horarios) {
-            System.out.println("-----------------------------");
-            System.out.println("Hora de Salida Programada: " + h.getHoraTexto());
-            for (String linea : h.getLineas()) {
-                System.out.println("  - Línea: " + linea);
-            }
+            // Muestra solo la hora, sin la lista completa de líneas.
+            System.out
+                    .println(" -> " + (h.getHora() != null ? h.getHora().format(DISPLAY_FORMATTER) : h.getHoraTexto()));
         }
-        System.out.println("-----------------------------");
     }
 
-    public static void main(String[] args) {
-        Scanner mainScanner = null;
-        Vista vista = null;
-
-        try {
-            DataManager dataManager = new DataManager();
-            List<Horario> horarios = dataManager.cargarHorarios();
-            List<Ruta> rutas = dataManager.cargarRutas();
-            List<Bus> buses = dataManager.cargarBuses();
-            dataManager.asignarHorariosABuses(buses, horarios);
-
-            if (horarios.isEmpty() || rutas.isEmpty() || buses.isEmpty()) {
-                System.out.println("No se encontraron datos suficientes para iniciar el sistema.");
-                return;
-            }
-
-            Buscadores buscadores = new Buscadores(horarios, rutas);
-            OptimizadorRutas optimizador = new OptimizadorRutas(horarios, rutas, buses);
-
-            mainScanner = new Scanner(System.in);
-            vista = new Vista(buscadores, optimizador);
-
-            boolean continuar = true;
-            while (continuar) {
-                vista.mostrarMenu();
-
-                System.out.println(
-                        "\n¿Desea realizar otra operación? (1: Sí, cualquier otro número o entrada para salir)");
-                if (mainScanner.hasNextInt()) {
-                    int opcion = mainScanner.nextInt();
-                    mainScanner.nextLine();
-                    continuar = (opcion == 1);
-                } else {
-                    continuar = false;
-                }
-            }
-
-        } catch (Exception e) {
-            System.err.println("Error en la ejecución: " + e.getMessage());
-            e.printStackTrace();
-        } finally {
-            try {
-                if (mainScanner != null) {
-                    mainScanner.close();
-                }
-            } catch (Exception e) {
-                System.err.println("Error al cerrar scanner: " + e.getMessage());
-            }
-
-            try {
-                if (vista != null) {
-                    vista.cerrarRecursos(); // Añadir este método en Vista
-                }
-            } catch (Exception e) {
-                System.err.println("Error al cerrar vista: " + e.getMessage());
-            }
-
-            DBConnection.closeConnection(); // Ahora es más seguro
-        }
-
-        System.out.println("Gracias por usar el Sistema de Información de Buses. ¡Hasta pronto!");
-    }
-
-    public void cerrarRecursos() {
-        if (this.scanner != null) {
-            this.scanner.close();
+    /**
+     * Cierra el scanner de entrada. Debería llamarse al finalizar la aplicación.
+     */
+    public void cerrarScanner() {
+        if (scanner != null) {
+            scanner.close();
+            System.out.println("Scanner de entrada cerrado.");
         }
     }
 }

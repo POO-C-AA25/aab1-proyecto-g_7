@@ -8,12 +8,6 @@ public class Bus {
     private String identificador;
     private List<String> asignacion;
 
-    /**
-     * Constructor para crear un Bus sin un ID de base de datos inicial (útil para
-     * nuevas creaciones).
-     * 
-     * @param identificador El nombre o identificador del bus (e.g., "Bus-1").
-     */
     public Bus(String identificador) {
         this.identificador = identificador;
         this.asignacion = new ArrayList<>();
