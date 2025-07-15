@@ -64,7 +64,6 @@ public class Horario {
         return lineas;
     }
 
-    // Setter para el ID (para cuando se inserta y se obtiene el ID generado)
     public void setId(int id) {
         this.id = id;
     }

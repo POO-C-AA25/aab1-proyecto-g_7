@@ -1,10 +1,10 @@
 package Model;
 
-import Datos.DBConnection; // Importar la clase de conexión a la DB desde el paquete Datos
+import Datos.DBConnection;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Connection; // Importar Connection
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -365,8 +365,6 @@ public class DataManager {
         return rutas;
     }
 
-    // --- Métodos de Utilidad y Simulación (movidos desde Vista.main) ---
-
     /**
      * Parsea una cadena de texto que representa una hora a un objeto LocalTime.
      * Método auxiliar, duplicado del de Buscadores para evitar dependencia
@@ -383,8 +381,6 @@ public class DataManager {
             if (amPmIndex == -1) {
                 amPmIndex = estandarizada.indexOf("PM");
             }
-            // CORRECCIÓN: amPmizada.charAt(amPmIndex - 1) debe ser
-            // estandarizada.charAt(amPmIndex - 1)
             if (amPmIndex != -1 && estandarizada.charAt(amPmIndex - 1) != ' ') {
                 estandarizada = estandarizada.substring(0, amPmIndex) + " " + estandarizada.substring(amPmIndex);
             }
@@ -400,7 +396,7 @@ public class DataManager {
      * Crea un número de objetos Bus con identificadores simples.
      * 
      * @param cantidad La cantidad de buses a crear.
-     * @return Una lista de objetos Bus.
+     * @return una lista de objetos Bus.
      */
     public List<Bus> crearBuses(int cantidad) {
         List<Bus> buses = new ArrayList<>();

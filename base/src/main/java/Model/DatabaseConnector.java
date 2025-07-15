@@ -19,7 +19,7 @@ public class DatabaseConnector {
         try {
             System.out.println("Intentando conectar a la base de datos...");
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            System.out.println("¡Conexión exitosa a la base de datos!");
+            System.out.println("Conexión exitosa a la base de datos");
             stmt = conn.createStatement();
             String sql = "SELECT id, name FROM users";
             rs = stmt.executeQuery(sql);
